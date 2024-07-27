@@ -15,7 +15,7 @@ public partial class Game : Node2D
 	private Player _player;
 	
 	// Informações que podem ser atribuidas em carregamento do jogador
-	private const int WorldId = 1;
+	public int WorldId = 0;
 	
 	public override void _Ready()
 	{
@@ -53,6 +53,14 @@ public partial class Game : Node2D
 			.Load<PackedScene>("res://Scenes/Player.tscn")
 			.InstantiateOrNull<Player>();
 		
+		if (WorldId == 0)
+		{
+			_player.SetPlayerPosition(new Vector2I(10, 10));
+		}
+		else
+		{
+			_player.SetPlayerPosition(new Vector2I(0, 0));
+		}
 		_players.AddChild(_player);
 	}
 }

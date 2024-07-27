@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Godot;
+using GodotFloorLevels.Scripts.ControlsBase.MapBase;
 
 namespace GodotFloorLevels.Scripts.WorldBase.Floors;
 
@@ -10,13 +11,16 @@ public class Floor
     public TileMapLayer DataLayer { get; set; }
     
     private readonly FloorManager _floorManager;
+    public readonly FloorTool FloorTool;
 
-    public Floor(int level, FloorManager floorManager)
+    public Floor(int level, FloorManager floorManager, FloorTool floorTool)
     {
         Level = level;
         Objects = new List<TileMapLayer>();
         _floorManager = floorManager;
+        FloorTool = floorTool;
     }
+
     public void CheckPlayerPosition(Vector2I position)
     {
         var tileData = DataLayer.GetCellTileData(position);
@@ -30,11 +34,11 @@ public class Floor
         
         if (floorUp)
         {
-            var signal = _floorManager.EmitSignal(FloorManager.SignalName.FloorGoUp);
+            _floorManager.EmitSignal(FloorManager.SignalName.FloorGoUp);
         }
         else if (floorDown)
         {
-            var signal = _floorManager.EmitSignal(FloorManager.SignalName.FloorGoDown);
+            _floorManager.EmitSignal(FloorManager.SignalName.FloorGoDown);
         }
         
     }

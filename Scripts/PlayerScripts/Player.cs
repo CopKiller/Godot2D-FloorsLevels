@@ -7,9 +7,9 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
 {
     public partial class Player : CharacterBody2D
     {
-        private Vector2I _gridSnapped;
+        private Vector2I _gridSnapped = new Vector2I(32, 32);
 
-        private Vector2I _targetPosition;
+        public Vector2I TargetPosition = new Vector2I();
 
         private bool _isMoving;
 
@@ -19,8 +19,6 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
 
         public override void _Ready()
         {
-            _gridSnapped = new Vector2I(32, 32);
-            _targetPosition = new Vector2I();
             _speed = 0.5f;
 
             // Supondo que o FloorManager é um nó filho ou de alguma forma acessível
@@ -43,7 +41,7 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
             if (ValidateNextPosition(direction * _gridSnapped))
                 return;
 
-            _targetPosition += direction * _gridSnapped;
+            TargetPosition += direction * _gridSnapped;
 
             _isMoving = true;
 
@@ -54,7 +52,7 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
         {
             if (!_isMoving) return;
 
-            this.TweenPosition(_targetPosition, _speed)
+            this.TweenPosition(TargetPosition, _speed)
                 .OnComplete(() => _isMoving = false)
                 .Play();
         }
@@ -70,6 +68,12 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
             GD.Print("Signal: " + signal);
             
             return false;
+        }
+        
+        public void SetPlayerPosition(Vector2I position)
+        {
+            TargetPosition = position * _gridSnapped;
+            Position = TargetPosition;
         }
     }
 }
