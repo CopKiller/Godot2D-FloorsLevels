@@ -96,7 +96,10 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
                         if (!layer.Visible)
                         {
                             layer.TweenModulateAlpha(1, 0.5f)
-                                .OnStart(() => { layer.Visible = true; })
+                                .OnStart(() =>
+                                {
+                                    layer.Visible = true;
+                                })
                                 .Play();
                         }
                     }
@@ -159,16 +162,19 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
                         obj.Visible = true;
                         obj.Modulate = new Color(1, 1, 1, 0);
                     }
-                    // else
-                    // {
-                    //     obj.TweenModulateAlpha(1, 0.5f).Play();
-                    // }
 
                     obj.ZIndex = floor.Level - CurrentFloorLevel - 1;
                 }
                 else
                 {
                     obj.ZIndex = -1;
+                    
+                    if (obj.Visible)
+                    {
+                        obj.Visible = false;
+                        
+                        //obj.Modulate = new Color(1, 1, 1, 0);
+                    }
                 }
 
                 obj.TweenModulateAlpha(targetAlpha, 0.5f)
