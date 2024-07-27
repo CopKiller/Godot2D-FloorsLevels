@@ -8,8 +8,6 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
 {
     public partial class FloorManager : Node
     {
-        private Vector2I _previousPosition = new Vector2I(-1, -1);
-
         [Signal]
         public delegate void FloorGoUpEventHandler();
 
@@ -22,7 +20,6 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
         private readonly Dictionary<int, Floor> _floors = new Dictionary<int, Floor>();
 
         public int CurrentFloorLevel { get; set; }
-        private int VisibilityRange { get; set; }
 
         public FloorManager()
         {
@@ -105,8 +102,6 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
                     }
                 }
             }
-
-            _previousPosition = position;
         }
 
         #endregion
@@ -117,7 +112,7 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
         {
             var floorsToCheck = new HashSet<int>();
 
-            // Adicionar todos os pisos visíveis pela CustomRangeVisible
+            // Adicionar todos os pisos visíveis pelo piso adicionado manualmente para se tornar visivel pelo VisibleFloors
             foreach (var floor in _floors.Values)
             {
                 foreach (var visibleFloor in floor.FloorTool.VisibleFloors)
@@ -164,6 +159,10 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
                         obj.Visible = true;
                         obj.Modulate = new Color(1, 1, 1, 0);
                     }
+                    // else
+                    // {
+                    //     obj.TweenModulateAlpha(1, 0.5f).Play();
+                    // }
 
                     obj.ZIndex = floor.Level - CurrentFloorLevel - 1;
                 }
