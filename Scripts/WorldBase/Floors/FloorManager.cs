@@ -36,6 +36,14 @@ namespace GodotFloorLevels.Scripts.WorldBase.Floors
             if (!_floors.ContainsKey(level))
             {
                 _floors[level] = new Floor(level, this, floorTool);
+                
+                foreach (var layer in floorTool.GetChildren())
+                {
+                    if (layer is TileMapLayer obj)
+                    {
+                        AddObjectToFloor(level, obj);
+                    } 
+                }
             }
         }
 
