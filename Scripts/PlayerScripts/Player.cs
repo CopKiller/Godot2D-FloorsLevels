@@ -22,7 +22,7 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
             _speed = 0.5f;
 
             // Supondo que o FloorManager é um nó filho ou de alguma forma acessível
-            _floorManager = GetParent().GetParent().GetChild<World>(1).FloorManager;
+            _floorManager = GetParent().GetParent().GetParent<World>().FloorManager;
         }
 
         public override void _PhysicsProcess(double delta)
@@ -63,7 +63,7 @@ namespace GodotFloorLevels.Scripts.PlayerScripts
             
             var nextPosition = (posI + position) / _gridSnapped;
             
-            var signal = _floorManager.EmitSignal(FloorManager.SignalName.CheckFloorChange, nextPosition);
+            var signal = _floorManager.EmitSignal(FloorManager.SignalName.CheckFloorChange, nextPosition, this);
             
             GD.Print("Signal: " + signal);
             

@@ -8,15 +8,10 @@
 [node name="CityWorld" type="Node2D"]
 script = ExtResource("1_k6ffs")
 MaxFloor = 2
+WorldId = 1
 
 [node name="0" parent="." instance=ExtResource("2_rxi8o")]
-CustomRangeVisible = 2
-VisibleFloors = PackedInt32Array()
 
 [node name="1" parent="." instance=ExtResource("3_1le8r")]
-CustomRangeVisible = 2
-VisibleFloors = PackedInt32Array()
 
 [node name="2" parent="." instance=ExtResource("4_mv2ao")]
-CustomRangeVisible = 2
-VisibleFloors = PackedInt32Array()

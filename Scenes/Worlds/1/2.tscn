@@ -568,6 +568,7 @@ custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_qtb7a")
 
 [node name="2" type="Node2D"]
+z_index = 2
 script = ExtResource("1_m1mqc")
 VisibleFloors = PackedInt32Array(0)
 

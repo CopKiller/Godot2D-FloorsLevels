@@ -21,10 +21,9 @@ public class Floor
         FloorTool = floorTool;
     }
 
-    public void CheckPlayerPosition(Vector2I position)
+    public void CheckPlayerPosition(Vector2I position, Node2D player)
     {
         var tileData = DataLayer.GetCellTileData(position);
-        
         _floorManager.HideFloorsAbove(position);
         
         if (tileData == null) return;
@@ -35,10 +34,12 @@ public class Floor
         if (floorUp)
         {
             _floorManager.EmitSignal(FloorManager.SignalName.FloorGoUp);
+            _floorManager.AddPlayerToFloor(_floorManager.CurrentFloorLevel, player);
         }
         else if (floorDown)
         {
             _floorManager.EmitSignal(FloorManager.SignalName.FloorGoDown);
+            _floorManager.AddPlayerToFloor(_floorManager.CurrentFloorLevel, player);
         }
         
     }
